@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Connection (Managed by HikariCP) -->
+        <property name="hibernate.hikari.jdbcUrl">jdbc:mysql://localhost:3306/learning</property>
+        <property name="hibernate.hikari.username">root</property>
+        <property name="hibernate.hikari.password">root</property>
+        <property name="hibernate.hikari.connectionTimeout">10000</property>
+        <property name="hibernate.hikari.maximumPoolSize">2</property>
+
+        <!--Transaction Management-->
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.transaction.coordinator_class">jdbc</property>
+
+        <!-- Only for Dev -->
+        <property name="jakarta.persistence.schema-generation.database.action">update</property>
+        <property name="hibernate.generate_statistics">true</property>
+        <property name="hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS">1</property>
+
+        <!-- Optional settings -->
+        <property name="hibernate.physical_naming_strategy">
+            org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        </property>
+
+    </session-factory>
+</hibernate-configuration>
