@@ -1,0 +1,1 @@
+ALTER TABLE order_service.`order` rename to order_service.`t_order`;
