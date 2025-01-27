@@ -1,5 +1,6 @@
 package com.upendra.order_service.service;
 
+import com.upendra.order_service.client.InventoryServiceClient;
 import com.upendra.order_service.dto.OrderRequest;
 import com.upendra.order_service.dto.OrderResponse;
 import com.upendra.order_service.model.Order;
@@ -17,12 +18,17 @@ public class OrderService {
     private static final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     private final OrderRepository orderRepository;
+    private final InventoryServiceClient inventoryServiceClient;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, InventoryServiceClient inventoryServiceClient) {
         this.orderRepository = orderRepository;
+        this.inventoryServiceClient = inventoryServiceClient;
     }
 
     public OrderResponse placeOrder(OrderRequest orderRequest) {
+        log.info("Placing order for skuCode: {}, quantity: {}", orderRequest.skuCode(), orderRequest.quantity());
+        String response = inventoryServiceClient.getAllStock();
+        log.info("Response from inventory service: {}", response);
         Order order = new Order();
         order.setOrderId(UUID.randomUUID().toString());
         order.setSkuCode(orderRequest.skuCode());

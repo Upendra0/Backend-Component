@@ -1,43 +1,27 @@
 package com.upendra.order_service;
 
+import com.upendra.order_service.dto.OrderResponse;
 import io.restassured.RestAssured;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.client.RestClient;
 import org.testcontainers.containers.MySQLContainer;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class OrderControllerTest {
 
     @ServiceConnection
-    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
-            .withUsername("root")
-            .withPassword("root")
-            .withEnv("MYSQL_ROOT_PASSWORD","root");
+    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0");
 
-    @DynamicPropertySource
-    static void configureTestProperties(DynamicPropertyRegistry registry){
-        System.out.printf("JDBC URL: %s%n",mysql.getJdbcUrl());
-        registry.add("spring.datasource.url",() -> mysql.getJdbcUrl());
-        registry.add("spring.datasource.username",() -> mysql.getUsername());
-        registry.add("spring.datasource.password",() -> mysql.getPassword());
-        registry.add("spring.jpa.hibernate.ddl-auto",() -> "none");
+    private Integer port = 8081;
 
-    }
-
-    @LocalServerPort
-    private int port;
-
-    @BeforeAll
-    static void start(){
+    static {
         mysql.start();
     }
 
@@ -56,7 +40,17 @@ public class OrderControllerTest {
                     "price":12
                 }
                 """;
+        RestClient restClient = RestClient.create("http://localhost:8081");
+        OrderResponse orderResponse = restClient.post()
+                .uri("/api/v1/placeOrder")
+                .body(requestBody)
+                .retrieve()
+                .body(OrderResponse.class);
+        System.out.println("OrderResponse: "+orderResponse);
+        RestAssured.port =8081;
+        System.out.println("RestAssured URI: "+RestAssured.baseURI+":"+RestAssured.port);
         RestAssured.given()
+                .port(port)
                 .contentType("application/json")
                 .body(requestBody)
                 .when()
