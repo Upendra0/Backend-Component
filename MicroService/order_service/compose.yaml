@@ -6,7 +6,9 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - order_mysql:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
 volumes:
-    mysql:
+  order_mysql:
 

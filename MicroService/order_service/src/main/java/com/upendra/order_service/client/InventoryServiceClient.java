@@ -1,11 +1,13 @@
 package com.upendra.order_service.client;
 
+import com.upendra.order_service.dto.BookStockRequest;
+import com.upendra.order_service.dto.BookStockResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "inventory-service", url = "http://localhost:8082")
+@FeignClient(name = "inventory-service")
 public interface InventoryServiceClient {
 
-    @GetMapping("/api/inventory/v1/getAll?page=0&size=5")
-    String getAllStock();
+    @PostMapping("/api/inventory/v1/bookStock")
+    BookStockResponse bookStock(BookStockRequest bookStockRequest);
 }

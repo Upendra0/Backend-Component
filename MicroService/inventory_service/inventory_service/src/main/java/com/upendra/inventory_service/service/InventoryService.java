@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class InventoryService {
 
-    private static final Logger log = LoggerFactory.getLogger(InventoryService.class);
+    private static final Logger logger = LoggerFactory.getLogger(InventoryService.class);
 
     private final InventoryRepository inventoryRepository;
 
@@ -34,7 +34,7 @@ public class InventoryService {
     }
 
     public InventoryResponse addStock(InventoryRequest inventoryRequest){
-        log.info("Adding inventory for skuCode: {}, quantity: {}", inventoryRequest.skuCode(), inventoryRequest.quantity());
+        logger.info("Adding inventory for skuCode: {}, quantity: {}", inventoryRequest.skuCode(), inventoryRequest.quantity());
         Inventory inventory = inventoryRepository.findBySkuCode(inventoryRequest.skuCode())
                 .orElse(new Inventory(inventoryRequest.skuCode(),0));
         inventory.setQuantity(inventory.getQuantity() + inventoryRequest.quantity());
@@ -43,6 +43,7 @@ public class InventoryService {
     }
 
     public BookStockResponse bookStock(BookStockRequest bookStockRequest) {
+        logger.info("Booking stock for skuCode: {}, quantity: {}", bookStockRequest.skuCode(), bookStockRequest.quantity());
         Optional<Inventory> inventoryOptional = inventoryRepository.findBySkuCode(bookStockRequest.skuCode());
         if(inventoryOptional.isEmpty()){
             return new BookStockResponse(false, "Inventory not found for skuCode: " + bookStockRequest.skuCode());
@@ -53,6 +54,7 @@ public class InventoryService {
             } else{
                 inventory.setQuantity(inventory.getQuantity() - bookStockRequest.quantity());
                 inventoryRepository.save(inventory);
+                logger.info("Stock booked successfully for skuCode: {}", bookStockRequest.skuCode());
                 return new BookStockResponse(true, "Stock booked successfully for skuCode: " + bookStockRequest.skuCode());
             }
         }
