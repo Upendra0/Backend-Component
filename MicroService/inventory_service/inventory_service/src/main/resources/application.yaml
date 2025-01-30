@@ -1,6 +1,8 @@
 spring:
   application:
     name: Inventory Service
+    version: 1.0.0
+    description: Order Service API
   datasource:
     url: jdbc:mysql://localhost:3309/inventory_service
     username: root
@@ -13,3 +15,7 @@ spring:
 
 server:
   port: 8082
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

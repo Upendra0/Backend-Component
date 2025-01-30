@@ -1,0 +1,15 @@
+server:
+    port: 8080
+spring:
+  application:
+    name: product-service
+    description: Product Service API
+    version: 1.0.0
+  data:
+    mongodb:
+      uri: mongodb://root:admin@product-service:27018/?authSource=admin
+#      database: product-service
+
+logging:
+  level:
+    com.upendra.product_service: debug
