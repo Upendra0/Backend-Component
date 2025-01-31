@@ -7,7 +7,7 @@ spring:
     version: 1.0.0
   data:
     mongodb:
-      uri: mongodb://root:admin@product-service:27018/?authSource=admin
+      uri: mongodb://root:root@localhost:27018/product-service?authSource=admin
 #      database: product-service
 
 logging:

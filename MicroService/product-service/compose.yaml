@@ -1,15 +1,15 @@
 services:
   mongodb:
     image: mongo:8.0
-    container_name: product_service_mongodb
+    container_name: product_service_mongodb_new
     ports:
       - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: product-service
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: product_service
     volumes:
-        - product_service_mongodb:/data/db
+        - product_service_mongodb_new:/data/db
 
 volumes:
-  product_service_mongodb:
+  product_service_mongodb_new:
