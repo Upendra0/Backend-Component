@@ -1,5 +1,6 @@
 server:
     port: 8080
+
 spring:
   application:
     name: product-service
@@ -8,7 +9,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:root@localhost:27018/product-service?authSource=admin
-#      database: product-service
 
 logging:
   level:
