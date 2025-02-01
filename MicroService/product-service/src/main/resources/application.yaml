@@ -10,6 +10,10 @@ spring:
     mongodb:
       uri: mongodb://root:root@localhost:27018/product-service?authSource=admin
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
 logging:
   level:
     com.upendra.product_service: debug

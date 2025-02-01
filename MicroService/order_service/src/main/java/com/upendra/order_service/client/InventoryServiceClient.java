@@ -2,12 +2,11 @@ package com.upendra.order_service.client;
 
 import com.upendra.order_service.dto.BookStockRequest;
 import com.upendra.order_service.dto.BookStockResponse;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.PostExchange;
 
-@FeignClient(name = "inventory-service")
 public interface InventoryServiceClient {
 
-    @PostMapping("/api/inventory/v1/bookStock")
-    BookStockResponse bookStock(BookStockRequest bookStockRequest);
+    @PostExchange("/api/inventory/v1/bookStock")
+    BookStockResponse bookStock(@RequestBody BookStockRequest bookStockRequest);
 }

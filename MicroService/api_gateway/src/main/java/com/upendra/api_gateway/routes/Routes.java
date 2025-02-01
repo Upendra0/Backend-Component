@@ -1,4 +1,4 @@
-package com.upendra.api_gateway;
+package com.upendra.api_gateway.routes;
 
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions;
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions;
@@ -19,16 +19,17 @@ public class Routes {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> orderServiceRote(){
-        return GatewayRouterFunctions.route("order-service")
-                .route(GatewayRequestPredicates.path("/api/order/**"), HandlerFunctions.http("http://localhost:8081"))
+    public RouterFunction<ServerResponse> inventoryServiceRoute(){
+        return GatewayRouterFunctions.route("inventory-service")
+                .route(GatewayRequestPredicates.path("/api/inventory/**"), HandlerFunctions.http("http://localhost:8081"))
                 .build();
     }
 
     @Bean
-    public RouterFunction<ServerResponse> inventoryServiceRoute(){
-        return GatewayRouterFunctions.route("inventory-service")
-                .route(GatewayRequestPredicates.path("/api/inventory/**"), HandlerFunctions.http("http://localhost:8082"))
+    public RouterFunction<ServerResponse> orderServiceRote(){
+        return GatewayRouterFunctions.route("order-service")
+                .route(GatewayRequestPredicates.path("/api/order/**"), HandlerFunctions.http("http://localhost:8082"))
                 .build();
     }
+
 }
