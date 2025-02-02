@@ -15,15 +15,34 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
-  cloud:
-    openfeign:
-        client:
-          config:
-            default:
-              connectTimeout: 5000
-              readTimeout: 5000
-            inventory-service:
-              url: http://localhost:8082
+
+# Resilience4j setting
+# Resilience4j  Configuration
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      #      Count Based store the last n request and switch circuit to open if failureRate >= threshold
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 25s
+      permittedNumberOfCallsInHalfOpenState: 5
+
+resilience4j.retry:
+  configs:
+    default:
+      maxRetryAttempts: 3
+      waitDuration: 500ms
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+
+resilience4j.timelimiter:
+  configs:
+    default:
+      timeoutDuration: 5s
+      #      to make sure that write operation is not cancelled, override for specific instances having read only
+      cancelRunningFuture: false
 
 springdoc:
   api-docs:

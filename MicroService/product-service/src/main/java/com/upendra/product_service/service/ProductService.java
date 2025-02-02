@@ -17,7 +17,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductResponse createProduct(ProductRequest productRequest){
+    public ProductResponse createProduct(ProductRequest productRequest)  {
+        log.info("Creating product with name:{}", productRequest.name());
         Product product = Product.builder()
                 .name(productRequest.name())
                 .description(productRequest.description())

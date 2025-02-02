@@ -1,0 +1,60 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: API Gateway
+
+# Spring boot Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+# Resilience4j  Configuration
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+#      Count Based store the last n request and switch circuit to open if failureRate >= threshold
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 25s
+      permittedNumberOfCallsInHalfOpenState: 5
+
+resilience4j.retry:
+  configs:
+    default:
+      maxRetryAttempts: 3
+      waitDuration: 500ms
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+
+resilience4j.timelimiter:
+  configs:
+    default:
+      timeoutDuration: 5s
+#      to make sure that write operation is not cancelled, override for specific instances having read only
+      cancelRunningFuture: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Product Service
+        url: /product/v3/api-docs
+      - name: Inventory Service
+        url: /inventory/v3/api-docs
+      - name: Order Service
+        url: /order/v3/api-docs
+
