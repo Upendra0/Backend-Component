@@ -22,6 +22,17 @@ springdoc:
   api-docs:
     path: /api-docs
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    httpexchanges:
+      enabled: true
+
 logging:
   level:
     com.upendra.product_service: debug

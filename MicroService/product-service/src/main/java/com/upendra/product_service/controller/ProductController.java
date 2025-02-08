@@ -3,9 +3,11 @@ package com.upendra.product_service.controller;
 import com.upendra.product_service.dto.ProductRequest;
 import com.upendra.product_service.dto.ProductResponse;
 import com.upendra.product_service.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class ProductController {
 
     @PostMapping(value = "/v1/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestBody ProductRequest productRequest){
+    public ProductResponse createProduct(@RequestBody @Validated ProductRequest productRequest){
         return productService.createProduct(productRequest);
     }
 
