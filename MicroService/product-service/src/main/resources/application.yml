@@ -13,10 +13,18 @@ spring:
 
 eureka:
   instance:
-    preferIpAddress: true
+    hostname: localhost
+    instanceId: ${spring.application.name}:${server.port}
+    metadataMap:
+      zone: BR
+
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+    region: IN
+    availability-zones:
+      IN: BR,BLR
+    service-url:
+      BR: http://eureka-server1:8761/eureka/
+      BLR: http://eureka-server2:8762/eureka/
 
 springdoc:
   api-docs:

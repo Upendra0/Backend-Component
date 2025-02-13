@@ -1,13 +1,21 @@
 spring:
   application:
-    name: service_registry
-
-server:
-    port: 8761
+    name: Service-Registry
 
 eureka:
+  datacenter: cloud
+  environment: ${spring.profiles.active}
+
   instance:
-    hostname: localhost
+    hostname: ${server.hostname}
+    instanceId: ${spring.application.name}_${server.hostname}:${server.port}
+    metadataMap:
+      zone: ${server.zone}
+
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    region: ${server.region}
+    availability-zones:
+      IN: BR,BLR
+    service-url:
+      BR: http://eureka-server1:8761/eureka/
+      BLR: http://eureka-server2:8762/eureka/
