@@ -1,13 +1,24 @@
-# Overriding the default configuration of Eureka when running in a cloud environment
 server:
   hostname: localhost
-  port: 8761
-  zone: primary
+  port: 9085
   region: IN
+  zone: BR
 
 spring:
   application:
-    name: Service-Registry
+    name: inventory-service
+    version: 1.0.0
+    description: Order Service API
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 eureka:
   datacenter: cloud
@@ -21,6 +32,7 @@ eureka:
 
   client:
     region: ${server.region}
+    fetch-registry: false
     availability-zones:
       IN: BR,BLR
     service-url:
