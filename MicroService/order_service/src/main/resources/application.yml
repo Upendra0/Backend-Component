@@ -1,22 +1,23 @@
-server:
-  port: 8082
-
 spring:
   application:
     name: Order Service API
     version: 1.0.0
     description: Order Service API
-  datasource:
-    url: jdbc:mysql://localhost:3308/order_service
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: true
 
-# Resilience4j setting
+eureka:
+  instance:
+    hostname: ${server.hostname}
+    instanceId: ${server.hostname}:${server.port}
+    metadataMap:
+      zone: ${server.zone}
+    # client is configured in profile specific as it depends on server configuration
+
+
 # Resilience4j  Configuration
 resilience4j.circuitbreaker:
   configs:
@@ -41,7 +42,7 @@ resilience4j.timelimiter:
   configs:
     default:
       timeoutDuration: 5s
-      #      to make sure that write operation is not cancelled, override for specific instances having read only
+      # to make sure that write operation is not cancelled, override for specific instances having read only
       cancelRunningFuture: false
 
 springdoc:

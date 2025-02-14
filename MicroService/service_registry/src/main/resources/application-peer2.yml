@@ -1,5 +1,0 @@
-server:
-  hostname: eureka-server2
-  port: 8762
-  region: IN
-  zone: BLR

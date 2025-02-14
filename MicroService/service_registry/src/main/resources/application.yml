@@ -8,7 +8,7 @@ eureka:
 
   instance:
     hostname: ${server.hostname}
-    instanceId: ${spring.application.name}_${server.hostname}:${server.port}
+    instanceId: ${server.hostname}:${server.port}
     metadataMap:
       zone: ${server.zone}
 

@@ -7,24 +7,14 @@ spring:
     description: Product Service API
     version: 1.0.0
 
-  data:
-    mongodb:
-      uri: mongodb://root:root@localhost:27018/product-service?authSource=admin
-
 eureka:
   instance:
-    hostname: localhost
-    instanceId: ${spring.application.name}:${server.port}
+    hostname: ${server.hostname}
+    instanceId: ${server.hostname}:${server.port}
     metadataMap:
-      zone: BR
+      zone: ${server.zone}
 
-  client:
-    region: IN
-    availability-zones:
-      IN: BR,BLR
-    service-url:
-      BR: http://eureka-server1:8761/eureka/
-      BLR: http://eureka-server2:8762/eureka/
+#  Client is configured in profile specific as it depends on server configuration
 
 springdoc:
   api-docs:
@@ -40,7 +30,3 @@ management:
       show-details: always
     httpexchanges:
       enabled: true
-
-logging:
-  level:
-    com.upendra.product_service: debug

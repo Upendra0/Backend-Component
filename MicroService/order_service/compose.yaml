@@ -3,11 +3,11 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orders
     ports:
       - "3308:3306"
     volumes:
       - order_mysql:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   order_mysql:

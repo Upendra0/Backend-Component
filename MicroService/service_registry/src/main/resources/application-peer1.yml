@@ -1,5 +1,0 @@
-server:
-  hostname: eureka-server1
-  port: 8761
-  region: IN
-  zone: BR
