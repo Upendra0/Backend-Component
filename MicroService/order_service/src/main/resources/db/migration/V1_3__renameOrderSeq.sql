@@ -1,1 +1,0 @@
-ALTER TABLE order_service.`order_seq` rename to order_service.`t_order_seq`;

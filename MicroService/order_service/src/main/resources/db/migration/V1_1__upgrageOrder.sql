@@ -1,1 +1,0 @@
-ALTER TABLE order_service.order MODIFY order_id VARCHAR(100);
