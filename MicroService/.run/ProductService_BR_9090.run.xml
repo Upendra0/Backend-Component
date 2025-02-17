@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ProductService_BR_9090" type="Application" factoryName="Application" folderName="ProductService">
+    <option name="MAIN_CLASS_NAME" value="com.upendra.product_service.ProductServiceApplication" />
+    <module name="product-service" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev --server.port=9090 --server.zone=BR" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/product-service" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.upendra.product_service.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
