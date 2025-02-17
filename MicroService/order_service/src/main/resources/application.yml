@@ -9,6 +9,11 @@ spring:
       ddl-auto: validate
     show-sql: true
 
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: false
+
 eureka:
   instance:
     hostname: ${server.hostname}
